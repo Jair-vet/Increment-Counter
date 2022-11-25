@@ -1,15 +1,21 @@
-const panels = document.querySelectorAll('.panel')
+const counters = document.querySelectorAll('.counter')
 
-panels.forEach( panel => {
-    panel.addEventListener('click', () => {
-        removeActiveClasses()
-        panel.classList.add('active')
-    })
+counters.forEach(counter => {
+   counter.innerText = '0'
+
+   const updateCounter = () => {
+        const target = +counter.getAttribute('data-target')
+        const c = +counter.innerText
+
+        const increment = target / 200
+
+        if( c < target ){
+            counter.innerText = `${Math.ceil(c + increment)}`
+            setTimeout(updateCounter, 1)
+        } else {
+            counter.innerText = target
+        }
+   }
+
+   updateCounter()
 })
-
-function removeActiveClasses() {
-    panels.forEach( panel => {
-        panel.classList.remove('active')
-    })
-}
-
